@@ -82,6 +82,11 @@ ATestShooterCharacter::ATestShooterCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	ObjectCollectorComp = CreateDefaultSubobject<UObjectCollector>(TEXT("ObjectCollectorComponent"));
+	ObjectCollectorComp->SetupAttachment(RootComponent);
+	ObjectCollectorComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+	ObjectCollectorComp->InitSphereRadius(100.0f);
 }
 
 void ATestShooterCharacter::BeginPlay()

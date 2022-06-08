@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Collectable/ObjectCollector.h"
 #include "GameFramework/Character.h"
 #include "TestShooterCharacter.generated.h"
 
@@ -50,6 +51,9 @@ class ATestShooterCharacter : public ACharacter
 	/** Motion controller (left hand) */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UMotionControllerComponent* L_MotionController;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UObjectCollector* ObjectCollectorComp;
 
 public:
 	ATestShooterCharacter();
