@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Collectable/ObjectCollector.h"
 #include "GameFramework/Character.h"
+#include "HealthSystem/HealthSystem.h"
 #include "TestShooterCharacter.generated.h"
 
 class UInputComponent;
@@ -54,7 +55,10 @@ class ATestShooterCharacter : public ACharacter
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UObjectCollector* ObjectCollectorComp;
-
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UHealthSystem* HealthSystem;
+	
 public:
 	ATestShooterCharacter();
 
@@ -127,6 +131,7 @@ protected:
 	void BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
 	void EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
 	void TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location);
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 	TouchData	TouchItem;
 	
 protected:
@@ -147,6 +152,5 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-
 };
 
