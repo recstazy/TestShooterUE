@@ -102,6 +102,12 @@ UAmmoContainer* ATestShooterCharacter::GetAmmoContainer()
 	return AmmoContainer;
 }
 
+void ATestShooterCharacter::PickUpWeapon(AWeaponActor* weaponActor)
+{
+	weaponActor->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	weaponActor->SetActorRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+}
+
 void ATestShooterCharacter::BeginPlay()
 {
 	// Call the base class  
