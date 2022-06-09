@@ -14,11 +14,14 @@ ATestShooterHUD::ATestShooterHUD()
 	CrosshairTex = CrosshairTexObj.Object;
 }
 
-
 void ATestShooterHUD::DrawHUD()
 {
 	Super::DrawHUD();
+	DrawCrosshair();
+}
 
+void ATestShooterHUD::DrawCrosshair()
+{
 	// Draw very simple crosshair
 
 	// find center of the Canvas
