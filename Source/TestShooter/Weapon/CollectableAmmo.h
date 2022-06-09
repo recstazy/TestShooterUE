@@ -19,4 +19,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	USphereComponent* Sphere;
+
+private:
+	UPROPERTY(EditDefaultsOnly)
+	int AmmoAmount;
 };

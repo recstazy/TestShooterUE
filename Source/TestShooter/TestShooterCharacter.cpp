@@ -89,11 +89,17 @@ ATestShooterCharacter::ATestShooterCharacter()
 	ObjectCollectorComp->InitSphereRadius(100.0f);
 
 	HealthSystem = CreateDefaultSubobject<UHealthSystem>(TEXT("Health"));
+	AmmoContainer = CreateDefaultSubobject<UAmmoContainer>(TEXT("AmmoContainer"));
 }
 
 UHealthSystem* ATestShooterCharacter::GetHealthSystem()
 {
 	return HealthSystem;
+}
+
+UAmmoContainer* ATestShooterCharacter::GetAmmoContainer()
+{
+	return AmmoContainer;
 }
 
 void ATestShooterCharacter::BeginPlay()

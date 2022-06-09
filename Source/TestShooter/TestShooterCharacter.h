@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include "HealthSystem/HealthOwner.h"
 #include "HealthSystem/HealthSystem.h"
+#include "Weapon/AmmoContainerOwner.h"
 #include "TestShooterCharacter.generated.h"
 
 class UInputComponent;
@@ -18,7 +19,7 @@ class UAnimMontage;
 class USoundBase;
 
 UCLASS(config=Game)
-class ATestShooterCharacter : public ACharacter, public IHealthOwner
+class ATestShooterCharacter : public ACharacter, public IHealthOwner, public IAmmoContainerOwner
 {
 	GENERATED_BODY()
 
@@ -59,12 +60,18 @@ class ATestShooterCharacter : public ACharacter, public IHealthOwner
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UHealthSystem* HealthSystem;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UAmmoContainer* AmmoContainer;
 	
 public:
 	ATestShooterCharacter();
 
 	UFUNCTION(BlueprintCallable)
 	virtual UHealthSystem* GetHealthSystem() override;
+
+	UFUNCTION(BlueprintCallable)
+	virtual UAmmoContainer* GetAmmoContainer() override;
 
 protected:
 	virtual void BeginPlay();

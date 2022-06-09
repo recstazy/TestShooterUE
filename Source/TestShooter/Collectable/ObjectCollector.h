@@ -4,7 +4,7 @@
 #include "Components/SphereComponent.h"
 #include "ObjectCollector.generated.h"
 
-UCLASS()
+UCLASS(ClassGroup=(Collectable), meta=(BlueprintSpawnableComponent))
 class TESTSHOOTER_API UObjectCollector : public USphereComponent
 {
 	GENERATED_BODY()
