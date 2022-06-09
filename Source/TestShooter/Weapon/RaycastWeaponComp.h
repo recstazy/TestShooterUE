@@ -27,4 +27,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	float Damage;
+
+private:
+	void GetAllOwnerActors(TArray<AActor*>& actors) const;
 };
