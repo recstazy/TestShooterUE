@@ -3,18 +3,18 @@
 UBaseWeaponController::UBaseWeaponController()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-	
 	Clip = CreateDefaultSubobject<UWeaponClip>("Clip");
+}
+
+void UBaseWeaponController::BeginPlay()
+{
 	const auto weaponComponents = GetOwner()->GetComponentsByInterface(UWeapon::StaticClass());
 
 	if (weaponComponents.Num() > 0)
 		Weapon = Cast<IWeapon>(weaponComponents[0]);
 	else
-		UE_LOG(LogTemp, Error, TEXT("Weapon component not found in SemiAutomatic Weapon"));
-}
-
-void UBaseWeaponController::BeginPlay()
-{
+		UE_LOG(LogTemp, Error, TEXT("Weapon component not found in Weapon"));
+	
 	Attached(GetOwner());
 	Super::BeginPlay();
 }
