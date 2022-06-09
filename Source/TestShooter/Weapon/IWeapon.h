@@ -16,8 +16,5 @@ class TESTSHOOTER_API IWeapon
 
 public:
 	UFUNCTION()
-	virtual void Shoot() = 0;
-
-	UFUNCTION()
-	virtual void Reload() = 0;
+	virtual void MakeOneShot() = 0;
 };
