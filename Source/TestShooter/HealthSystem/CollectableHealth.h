@@ -4,18 +4,22 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
 #include "TestShooter/Collectable/Collectable.h"
-#include "CollectableAmmo.generated.h"
+#include "CollectableHealth.generated.h"
 
 UCLASS()
-class TESTSHOOTER_API ACollectableAmmo : public AActor, public ICollectable
+class TESTSHOOTER_API ACollectableHealth : public AActor, public  ICollectable
 {
 	GENERATED_BODY()
 
 public:
-	ACollectableAmmo();
+	ACollectableHealth();
 
 	UFUNCTION(BlueprintCallable)
 	virtual void OnCollected(AActor* collectedActor) override;
+
+public:
+	UPROPERTY(EditDefaultsOnly)
+	float HealthAmount;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	USphereComponent* Sphere;

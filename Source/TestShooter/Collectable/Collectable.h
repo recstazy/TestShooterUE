@@ -16,5 +16,5 @@ class TESTSHOOTER_API ICollectable
 
 public:
 	UFUNCTION()
-	virtual void OnCollected() = 0;
+	virtual void OnCollected(AActor* collectedActor) = 0;
 };

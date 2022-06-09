@@ -91,6 +91,11 @@ ATestShooterCharacter::ATestShooterCharacter()
 	HealthSystem = CreateDefaultSubobject<UHealthSystem>(TEXT("Health"));
 }
 
+UHealthSystem* ATestShooterCharacter::GetHealthSystem()
+{
+	return HealthSystem;
+}
+
 void ATestShooterCharacter::BeginPlay()
 {
 	// Call the base class  

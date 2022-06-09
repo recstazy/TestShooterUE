@@ -25,6 +25,13 @@ float UHealthSystem::TakeDamage(float damage)
 	return initialHealth - CurrentHealth;
 }
 
+void UHealthSystem::Heal(float amount)
+{
+	CurrentHealth = FMath::Clamp(CurrentHealth + amount, 0.0f, MaxHealth);
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HS Healed"));
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Current Health %f"), CurrentHealth));
+}
+
 bool UHealthSystem::IsAlive() const
 {
 	return bIsAlive;

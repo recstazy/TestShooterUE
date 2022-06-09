@@ -16,6 +16,6 @@ void UObjectCollector::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 	if (collectable == nullptr)
 		return;
 
-	collectable->OnCollected();
+	collectable->OnCollected(GetOwner());
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Collectable collected"));
 }

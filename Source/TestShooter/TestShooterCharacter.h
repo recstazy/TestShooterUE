@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Collectable/ObjectCollector.h"
 #include "GameFramework/Character.h"
+#include "HealthSystem/HealthOwner.h"
 #include "HealthSystem/HealthSystem.h"
 #include "TestShooterCharacter.generated.h"
 
@@ -17,7 +18,7 @@ class UAnimMontage;
 class USoundBase;
 
 UCLASS(config=Game)
-class ATestShooterCharacter : public ACharacter
+class ATestShooterCharacter : public ACharacter, public IHealthOwner
 {
 	GENERATED_BODY()
 
@@ -61,6 +62,9 @@ class ATestShooterCharacter : public ACharacter
 	
 public:
 	ATestShooterCharacter();
+
+	UFUNCTION(BlueprintCallable)
+	virtual UHealthSystem* GetHealthSystem() override;
 
 protected:
 	virtual void BeginPlay();

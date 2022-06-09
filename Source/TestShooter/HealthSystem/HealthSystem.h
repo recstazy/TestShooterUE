@@ -12,7 +12,7 @@ UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class TESTSHOOTER_API UHealthSystem : public UActorComponent
 {
 	GENERATED_BODY()
-	
+
 public:
 	UHealthSystem();
 
@@ -20,11 +20,14 @@ public:
 	float TakeDamage(float damage);
 
 	UFUNCTION(BlueprintCallable)
+	void Heal(float amount);
+
+	UFUNCTION(BlueprintCallable)
 	bool IsAlive() const;
 
 	UFUNCTION(BlueprintCallable)
 	float GetCurrentHealth() const;
-	
+
 	UFUNCTION(BlueprintCallable)
 	float GetMaxHealth() const;
 
@@ -37,7 +40,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	
+
 private:
 	void HandleDeath();
 
