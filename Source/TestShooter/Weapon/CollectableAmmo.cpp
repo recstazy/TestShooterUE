@@ -1,6 +1,6 @@
 ﻿#include "CollectableAmmo.h"
 
-#include "AmmoContainerOwner.h"
+#include "IAmmoContainerOwner.h"
 
 ACollectableAmmo::ACollectableAmmo()
 {

@@ -1,6 +1,6 @@
 ﻿#include "CollectableHealth.h"
 
-#include "HealthOwner.h"
+#include "IHealthOwner.h"
 
 ACollectableHealth::ACollectableHealth()
 {

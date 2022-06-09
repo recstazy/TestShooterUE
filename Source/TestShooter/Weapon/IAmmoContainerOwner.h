@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "AmmoContainer.h"
 #include "UObject/Interface.h"
-#include "AmmoContainerOwner.generated.h"
+#include "IAmmoContainerOwner.generated.h"
 
 UINTERFACE()
 class UAmmoContainerOwner : public UInterface

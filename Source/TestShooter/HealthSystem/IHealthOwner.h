@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "HealthSystem.h"
 #include "UObject/Interface.h"
-#include "HealthOwner.generated.h"
+#include "IHealthOwner.generated.h"
 
 UINTERFACE()
 class UHealthOwner : public UInterface

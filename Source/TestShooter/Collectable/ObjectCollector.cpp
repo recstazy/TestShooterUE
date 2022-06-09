@@ -1,5 +1,5 @@
 #include "ObjectCollector.h"
-#include "Collectable.h"
+#include "ICollectable.h"
 
 UObjectCollector::UObjectCollector()
 {

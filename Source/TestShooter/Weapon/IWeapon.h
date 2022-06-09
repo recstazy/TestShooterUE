@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "Weapon.generated.h"
+#include "IWeapon.generated.h"
 
 UINTERFACE()
 class UWeapon : public UInterface

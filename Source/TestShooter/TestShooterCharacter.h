@@ -5,9 +5,9 @@
 #include "CoreMinimal.h"
 #include "Collectable/ObjectCollector.h"
 #include "GameFramework/Character.h"
-#include "HealthSystem/HealthOwner.h"
+#include "HealthSystem/IHealthOwner.h"
 #include "HealthSystem/HealthSystem.h"
-#include "Weapon/AmmoContainerOwner.h"
+#include "Weapon/IAmmoContainerOwner.h"
 #include "TestShooterCharacter.generated.h"
 
 class UInputComponent;

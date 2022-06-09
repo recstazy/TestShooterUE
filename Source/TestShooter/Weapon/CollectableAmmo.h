@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
-#include "TestShooter/Collectable/Collectable.h"
+#include "TestShooter/Collectable/ICollectable.h"
 #include "CollectableAmmo.generated.h"
 
 UCLASS()

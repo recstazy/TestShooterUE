@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "Collectable.generated.h"
+#include "ICollectable.generated.h"
 
 UINTERFACE()
 class UCollectable : public UInterface
