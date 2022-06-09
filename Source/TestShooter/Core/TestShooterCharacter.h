@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Collectable/ObjectCollector.h"
+#include "TestShooter/Collectable/ObjectCollector.h"
 #include "GameFramework/Character.h"
-#include "HealthSystem/IHealthOwner.h"
-#include "HealthSystem/HealthSystem.h"
-#include "Weapon/IAmmoContainerOwner.h"
-#include "Weapon/IWeaponHolder.h"
-#include "Weapon/WeaponActor.h"
+#include "TestShooter/HealthSystem/IHealthOwner.h"
+#include "TestShooter/HealthSystem/HealthSystem.h"
+#include "TestShooter/Weapon/IAmmoContainerOwner.h"
+#include "TestShooter/Weapon/IWeaponHolder.h"
+#include "TestShooter/Weapon/WeaponActor.h"
 #include "TestShooterCharacter.generated.h"
 
 class UInputComponent;

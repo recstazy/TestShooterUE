@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "TestShooterGameMode.h"
-#include "TestShooterHUD.h"
+#include "TestShooter/UI/TestShooterHUD.h"
 #include "TestShooterCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
