@@ -10,9 +10,9 @@ ACollectableHealth::ACollectableHealth()
 	Sphere->InitSphereRadius(50.0f);
 }
 
-void ACollectableHealth::OnCollected(AActor* collectedActor)
+void ACollectableHealth::OnCollected(UObject* collectedObject)
 {
-	auto healthOwner = Cast<IHealthOwner>(collectedActor);
+	const auto healthOwner = Cast<IHealthOwner>(collectedObject);
 
 	if (healthOwner == nullptr)
 		return;

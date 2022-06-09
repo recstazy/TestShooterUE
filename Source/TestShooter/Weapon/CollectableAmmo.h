@@ -15,7 +15,7 @@ public:
 	ACollectableAmmo();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void OnCollected(AActor* collectedActor) override;
+	virtual void OnCollected(UObject* collectedObject) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	USphereComponent* Sphere;

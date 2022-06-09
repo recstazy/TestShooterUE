@@ -10,9 +10,9 @@ ACollectableAmmo::ACollectableAmmo()
 	Sphere->InitSphereRadius(50.0f);
 }
 
-void ACollectableAmmo::OnCollected(AActor* collectedActor)
+void ACollectableAmmo::OnCollected(UObject* collectedObject)
 {
-	const auto ammoContainerOwner = Cast<IAmmoContainerOwner>(collectedActor);
+	const auto ammoContainerOwner = Cast<IAmmoContainerOwner>(collectedObject);
 	if (ammoContainerOwner == nullptr)
 		return;
 

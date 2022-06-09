@@ -15,7 +15,7 @@ public:
 	ACollectableHealth();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void OnCollected(AActor* collectedActor) override;
+	virtual void OnCollected(UObject* collectedObject) override;
 
 public:
 	UPROPERTY(EditDefaultsOnly)

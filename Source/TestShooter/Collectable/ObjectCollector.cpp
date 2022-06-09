@@ -14,6 +14,9 @@ void UObjectCollector::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 	auto collectable = Cast<ICollectable>(OtherActor);
 
 	if (collectable == nullptr)
+		collectable = Cast<ICollectable>(OtherComp);
+
+	if (collectable == nullptr)
 		return;
 
 	collectable->OnCollected(GetOwner());
