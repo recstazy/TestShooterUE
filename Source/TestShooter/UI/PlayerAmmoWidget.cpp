@@ -5,7 +5,14 @@
 void UPlayerAmmoWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	WeaponHolder = Cast<IWeaponHolder>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	const auto playerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	AmmoOwner = Cast<IAmmoContainerOwner>(playerPawn);
+
+	if (AmmoOwner != nullptr)
+		AmmoOwner->GetAmmoContainer()->OnAmmoChanged.AddDynamic(this, &UPlayerAmmoWidget::ContainerAmmoChanged);
+	
+	WeaponHolder = Cast<IWeaponHolder>(playerPawn);
 	if (WeaponHolder == nullptr)
 		return;
 
@@ -25,17 +32,15 @@ void UPlayerAmmoWidget::UpdateView()
 	if (AmmoText == nullptr)
 		return;
 
-	const auto weaponController = CurrentWeaponController;
-	const bool isWeaponValid = weaponController != nullptr;
-
-	if (!isWeaponValid)
-	{
-		AmmoText->SetText(FText::FromString("0/0"));
-		return;
-	}
+	int containerAmmo = -1;
+	int clipAmmo = -1;
 	
-	const int clipAmmo = weaponController->GetClip()->GetCurrentAmmo();
-	const int containerAmmo = weaponController->GetAmmoOwner()->GetAmmoContainer()->GetCurrentAmmo();
+	if (AmmoOwner != nullptr)
+		containerAmmo = AmmoOwner->GetAmmoContainer()->GetCurrentAmmo();
+
+	if (CurrentWeaponController != nullptr)
+		clipAmmo = CurrentWeaponController->GetClip()->GetCurrentAmmo();
+	
 	const auto text = FText::FromString(FString::Printf(TEXT("%d/%d"), clipAmmo, containerAmmo));
 	AmmoText->SetText(text);
 }
@@ -57,18 +62,12 @@ UBaseWeaponController* UPlayerAmmoWidget::GetWeaponController() const
 void UPlayerAmmoWidget::HeldWeaponChanged()
 {
 	if (CurrentWeaponController != nullptr)
-	{
-		CurrentWeaponController->GetClip()->OnCurrentAmmoChanged.RemoveDynamic(this, &UPlayerAmmoWidget::ClipAmmoChanged);
-		CurrentWeaponController->GetAmmoOwner()->GetAmmoContainer()->OnAmmoChanged.RemoveDynamic(this, &UPlayerAmmoWidget::ContainerAmmoChanged);
-	}
+		CurrentWeaponController->GetClip()->OnCurrentAmmoChanged.AddDynamic(this, &UPlayerAmmoWidget::ClipAmmoChanged);
 
 	CurrentWeaponController = GetWeaponController();
 
 	if (CurrentWeaponController != nullptr)
-	{
 		CurrentWeaponController->GetClip()->OnCurrentAmmoChanged.AddDynamic(this, &UPlayerAmmoWidget::ClipAmmoChanged);
-		CurrentWeaponController->GetAmmoOwner()->GetAmmoContainer()->OnAmmoChanged.AddDynamic(this, &UPlayerAmmoWidget::ContainerAmmoChanged);
-	}
 
 	UpdateView();
 }

@@ -38,7 +38,9 @@ private:
 	
 private:
 	IWeaponHolder* WeaponHolder = nullptr;
+	IAmmoContainerOwner* AmmoOwner = nullptr;
 
 	UPROPERTY()
 	UBaseWeaponController* CurrentWeaponController = nullptr;
+
 };
