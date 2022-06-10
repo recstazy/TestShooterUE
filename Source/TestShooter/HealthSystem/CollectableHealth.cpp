@@ -18,7 +18,6 @@ void ACollectableHealth::OnCollected(UObject* collectedObject)
 		return;
 
 	healthOwner->GetHealthSystem()->Heal(HealthAmount);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Health Collected"));
 	Destroy();
 }
 

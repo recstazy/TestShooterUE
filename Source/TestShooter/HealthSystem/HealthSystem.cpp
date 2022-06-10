@@ -48,8 +48,6 @@ void UHealthSystem::BeginPlay()
 {
 	CurrentHealth = MaxHealth;
 	bIsAlive = true;
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Current Health %f"), CurrentHealth));
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Max Health %f"), MaxHealth));
 	Super::BeginPlay();
 }
 
@@ -57,7 +55,5 @@ void UHealthSystem::HandleDeath()
 {
 	bIsAlive = false;
 	OnDeath.Broadcast();
-
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HS Dead"));
 }
 
