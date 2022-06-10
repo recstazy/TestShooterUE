@@ -32,8 +32,8 @@ void UPlayerAmmoWidget::UpdateView()
 	if (AmmoText == nullptr)
 		return;
 
-	int containerAmmo = -1;
-	int clipAmmo = -1;
+	int containerAmmo = 0;
+	int clipAmmo = 0;
 	
 	if (AmmoOwner != nullptr)
 		containerAmmo = AmmoOwner->GetAmmoContainer()->GetCurrentAmmo();

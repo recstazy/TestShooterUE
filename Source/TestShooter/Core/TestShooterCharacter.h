@@ -100,8 +100,9 @@ public:
 
 protected:
 	
-	/** Fires a projectile. */
-	void OnFire();
+	void OnTriggerDown();
+	void OnTriggerUp();
+	void OnReload();
 
 	/** Resets HMD orientation and position in VR. */
 	void OnResetVR();

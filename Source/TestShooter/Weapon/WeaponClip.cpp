@@ -7,7 +7,8 @@ UWeaponClip::UWeaponClip()
 
 void UWeaponClip::Reload(UAmmoContainer* container)
 {
-	CurrentAmmo += container->DrainAmmo(MaxAmmo);
+	const int neededAmmo = MaxAmmo - CurrentAmmo;
+	CurrentAmmo += container->DrainAmmo(neededAmmo);
 	OnCurrentAmmoChanged.Broadcast(CurrentAmmo);
 }
 

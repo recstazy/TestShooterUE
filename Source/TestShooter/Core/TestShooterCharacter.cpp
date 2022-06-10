@@ -125,7 +125,11 @@ void ATestShooterCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATestShooterCharacter::OnFire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATestShooterCharacter::OnTriggerDown);
+	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ATestShooterCharacter::OnTriggerUp);
+
+	// Bind reload event
+	PlayerInputComponent->BindAction("Reload", IE_Pressed, this, &ATestShooterCharacter::OnReload);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -145,23 +149,28 @@ void ATestShooterCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ATestShooterCharacter::LookUpAtRate);
 }
 
-void ATestShooterCharacter::OnFire()
+void ATestShooterCharacter::OnTriggerDown()
 {
 	if (Weapon == nullptr)
 		return;
 
 	Weapon->GetWeaponController()->TriggerDown();
-	
-	// try and play a firing animation if specified
-	if (FireAnimation != nullptr)
-	{
-		// Get the animation object for the arms mesh
-		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
-		if (AnimInstance != nullptr)
-		{
-			AnimInstance->Montage_Play(FireAnimation, 1.f);
-		}
-	}
+}
+
+void ATestShooterCharacter::OnTriggerUp()
+{
+	if (Weapon == nullptr)
+		return;
+
+	Weapon->GetWeaponController()->TriggerUp();
+}
+
+void ATestShooterCharacter::OnReload()
+{
+	if (Weapon == nullptr)
+		return;
+
+	Weapon->GetWeaponController()->Reload();
 }
 
 void ATestShooterCharacter::OnResetVR()
@@ -177,7 +186,7 @@ void ATestShooterCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, cons
 	}
 	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
 	{
-		OnFire();
+		OnTriggerDown();
 	}
 	TouchItem.bIsPressed = true;
 	TouchItem.FingerIndex = FingerIndex;
