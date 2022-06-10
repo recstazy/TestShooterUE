@@ -69,6 +69,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void PickUpWeapon(AWeaponActor* weaponActor) override;
 
+	UFUNCTION(BlueprintCallable)
+	virtual AWeaponActor* GetWeapon() const override;
+
+	UFUNCTION(BlueprintCallable)
+	virtual UHeldWeaponChangeNotifier* GetHeldWeaponChangedNotifier() const override;
+
 protected:
 	virtual void BeginPlay();
 
@@ -88,6 +94,9 @@ public:
 	/** Whether to use motion controller location for aiming. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint8 bUsingMotionControllers : 1;
+
+	UPROPERTY(BlueprintReadOnly)
+	UHeldWeaponChangeNotifier* HeldWeaponChangeNotifier;
 
 protected:
 	

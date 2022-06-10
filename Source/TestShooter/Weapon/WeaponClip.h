@@ -5,6 +5,8 @@
 #include "Components/ActorComponent.h"
 #include "WeaponClip.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FClipAmmoChangedSignature, int, currentValue);
+
 UCLASS(ClassGroup=(Weapon), meta=(BlueprintSpawnableComponent))
 class TESTSHOOTER_API UWeaponClip : public UActorComponent
 {
@@ -18,6 +20,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool TrySpend(int ammoAmount);
+
+	UFUNCTION(BlueprintCallable)
+	int GetCurrentAmmo() const;
+
+public:
+	UPROPERTY(BlueprintAssignable)
+	FClipAmmoChangedSignature OnCurrentAmmoChanged;
 
 private:
 	UPROPERTY(EditDefaultsOnly)

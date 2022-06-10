@@ -14,9 +14,7 @@ bool UAmmoContainer::TryAddAmmo(int amount)
 		return false;
 	
 	CurrentAmmo = resultCurrentAmmo;
-
-	const auto message = FString::Printf(TEXT("Current Ammo: %d"), CurrentAmmo);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
+	OnAmmoChanged.Broadcast(CurrentAmmo);
 	return true;
 }
 
@@ -26,8 +24,12 @@ int UAmmoContainer::DrainAmmo(int expectedAmount)
 	const int drainedAmount = CurrentAmmo - resultCurrentAmmo;
 	CurrentAmmo = resultCurrentAmmo;
 
-	const auto message = FString::Printf(TEXT("Ammo Drained: %d"), drainedAmount);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
-	return  drainedAmount;
+	OnAmmoChanged.Broadcast(CurrentAmmo);
+	return drainedAmount;
+}
+
+int UAmmoContainer::GetCurrentAmmo() const
+{
+	return CurrentAmmo;
 }
 

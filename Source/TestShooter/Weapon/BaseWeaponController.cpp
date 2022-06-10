@@ -6,6 +6,16 @@ UBaseWeaponController::UBaseWeaponController()
 	Clip = CreateDefaultSubobject<UWeaponClip>("Clip");
 }
 
+UWeaponClip* UBaseWeaponController::GetClip() const
+{
+	return Clip;
+}
+
+IAmmoContainerOwner* UBaseWeaponController::GetAmmoOwner() const
+{
+	return AmmoOwner;
+}
+
 void UBaseWeaponController::BeginPlay()
 {
 	const auto weaponComponents = GetOwner()->GetComponentsByInterface(UWeapon::StaticClass());

@@ -15,6 +15,10 @@ class TESTSHOOTER_API UBaseWeaponController : public UActorComponent, public IWe
 
 public:
 	UBaseWeaponController();
+	IAmmoContainerOwner* GetAmmoOwner() const;
+
+	UFUNCTION(BlueprintCallable)
+	UWeaponClip* GetClip() const;
 
 protected:
 	virtual void BeginPlay() override;
