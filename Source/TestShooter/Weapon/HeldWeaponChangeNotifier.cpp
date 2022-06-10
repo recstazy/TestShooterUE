@@ -1,6 +1,6 @@
 ﻿#include "HeldWeaponChangeNotifier.h"
 
-UHeldWeaponChangeNotifier* UHeldWeaponChangeNotifier::Construct()
+void UHeldWeaponChangeNotifier::CallWeaponChanged()
 {
-	return NewObject<UHeldWeaponChangeNotifier>();
+	OnHeldWeaponChanged.Broadcast();
 }

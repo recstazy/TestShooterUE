@@ -32,6 +32,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	int MaxAmmo;
 
+	UPROPERTY(EditDefaultsOnly)
+	int StartAmmo;
+
 	UPROPERTY(VisibleAnywhere)
 	int CurrentAmmo;
 

@@ -1,9 +1,11 @@
 ﻿#include "WeaponActor.h"
 #include "IWeaponHolder.h"
+#include "WeaponClip.h"
 
 AWeaponActor::AWeaponActor()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	Clip = CreateDefaultSubobject<UWeaponClip>("WeaponClip");
 }
 
 void AWeaponActor::OnCollected(UObject* collectedObject)

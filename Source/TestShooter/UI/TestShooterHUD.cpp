@@ -22,20 +22,8 @@ void ATestShooterHUD::DrawHUD()
 
 void ATestShooterHUD::BeginPlay()
 {
-	if (AmmoWidgetClass != nullptr)
-	{
-		AmmoWidget = CreateWidget(GetWorld(), AmmoWidgetClass);
-		AmmoWidget->AddToPlayerScreen();
-	}
-
-	if (HealthWidgetClass != nullptr)
-	{
-		HealthWidget = CreateWidget(GetWorld(), HealthWidgetClass);
-		HealthWidget->AddToPlayerScreen();
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Add Health Widget"));
-	}
-	
 	Super::BeginPlay();
+	InitializeHUD();
 }
 
 void ATestShooterHUD::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -70,4 +58,19 @@ void ATestShooterHUD::DrawCrosshair()
 	FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
 	TileItem.BlendMode = SE_BLEND_Translucent;
 	Canvas->DrawItem( TileItem );
+}
+
+void ATestShooterHUD::InitializeHUD()
+{
+	if (AmmoWidgetClass != nullptr)
+	{
+		AmmoWidget = CreateWidget(GetWorld(), AmmoWidgetClass);
+		AmmoWidget->AddToPlayerScreen();
+	}
+
+	if (HealthWidgetClass != nullptr)
+	{
+		HealthWidget = CreateWidget(GetWorld(), HealthWidgetClass);
+		HealthWidget->AddToPlayerScreen();
+	}
 }

@@ -56,6 +56,9 @@ class ATestShooterCharacter : public ACharacter, public IHealthOwner, public IAm
 
 	UPROPERTY(VisibleAnywhere)
 	AWeaponActor* Weapon;
+
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	UHeldWeaponChangeNotifier* HeldWeaponChangeNotifier;
 	
 public:
 	ATestShooterCharacter();
@@ -94,9 +97,6 @@ public:
 	/** Whether to use motion controller location for aiming. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint8 bUsingMotionControllers : 1;
-
-	UPROPERTY(BlueprintReadOnly)
-	UHeldWeaponChangeNotifier* HeldWeaponChangeNotifier;
 
 protected:
 	

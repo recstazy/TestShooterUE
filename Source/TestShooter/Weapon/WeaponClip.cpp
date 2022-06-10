@@ -29,7 +29,8 @@ int UWeaponClip::GetCurrentAmmo() const
 
 void UWeaponClip::BeginPlay()
 {
-	CurrentAmmo = MaxAmmo;
+	CurrentAmmo = StartAmmo;
+	OnCurrentAmmoChanged.Broadcast(CurrentAmmo);
 	Super::BeginPlay();
 }
 

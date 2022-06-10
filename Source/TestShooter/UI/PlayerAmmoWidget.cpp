@@ -9,9 +9,15 @@ void UPlayerAmmoWidget::NativeConstruct()
 	if (WeaponHolder == nullptr)
 		return;
 
-	WeaponHolder->GetHeldWeaponChangedNotifier()->OnHeldWeaponChanged.AddDynamic(this, &UPlayerAmmoWidget::HeldWeaponChanged);
+	const auto weaponChangeNotifier = WeaponHolder->GetHeldWeaponChangedNotifier();
+	auto message = weaponChangeNotifier == nullptr ? "Notifier is NULL" : "Notifier is NOT null";
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
+
+	if (weaponChangeNotifier == nullptr)
+		return;
+	
+	weaponChangeNotifier->OnHeldWeaponChanged.AddDynamic(this, &UPlayerAmmoWidget::HeldWeaponChanged);
 	HeldWeaponChanged();
-	UpdateView();
 }
 
 void UPlayerAmmoWidget::UpdateView()
@@ -21,14 +27,16 @@ void UPlayerAmmoWidget::UpdateView()
 
 	const auto weaponController = CurrentWeaponController;
 	const bool isWeaponValid = weaponController != nullptr;
-	AmmoText->SetVisibility(isWeaponValid ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
 
 	if (!isWeaponValid)
+	{
+		AmmoText->SetText(FText::FromString("0/0"));
 		return;
+	}
 	
 	const int clipAmmo = weaponController->GetClip()->GetCurrentAmmo();
 	const int containerAmmo = weaponController->GetAmmoOwner()->GetAmmoContainer()->GetCurrentAmmo();
-	const auto text = FText::Format(FTextFormat::FromString("%d/%d"), clipAmmo, containerAmmo);
+	const auto text = FText::FromString(FString::Printf(TEXT("%d/%d"), clipAmmo, containerAmmo));
 	AmmoText->SetText(text);
 }
 
@@ -61,6 +69,8 @@ void UPlayerAmmoWidget::HeldWeaponChanged()
 		CurrentWeaponController->GetClip()->OnCurrentAmmoChanged.AddDynamic(this, &UPlayerAmmoWidget::ClipAmmoChanged);
 		CurrentWeaponController->GetAmmoOwner()->GetAmmoContainer()->OnAmmoChanged.AddDynamic(this, &UPlayerAmmoWidget::ContainerAmmoChanged);
 	}
+
+	UpdateView();
 }
 
 void UPlayerAmmoWidget::ClipAmmoChanged(int currentAmmo)

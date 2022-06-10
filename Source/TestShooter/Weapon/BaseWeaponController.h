@@ -31,6 +31,6 @@ protected:
 	IWeapon* Weapon;
 	IAmmoContainerOwner* AmmoOwner;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	UWeaponClip* Clip;
 };

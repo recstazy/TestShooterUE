@@ -10,7 +10,8 @@ void USemiAutomaticWeaponController::TriggerDown()
 	if (Weapon == nullptr)
 		return;
 
-	Weapon->MakeOneShot();
+	if (Clip->TrySpend(1))
+		Weapon->MakeOneShot();
 }
 
 void USemiAutomaticWeaponController::TriggerUp()

@@ -65,7 +65,7 @@ ATestShooterCharacter::ATestShooterCharacter()
 
 	HealthSystem = CreateDefaultSubobject<UHealthSystem>(TEXT("Health"));
 	AmmoContainer = CreateDefaultSubobject<UAmmoContainer>(TEXT("AmmoContainer"));
-	HeldWeaponChangeNotifier = UHeldWeaponChangeNotifier::Construct();
+	HeldWeaponChangeNotifier = CreateDefaultSubobject<UHeldWeaponChangeNotifier>("HeldWeaponChangeNotifier");
 }
 
 UHealthSystem* ATestShooterCharacter::GetHealthSystem()
@@ -82,7 +82,8 @@ void ATestShooterCharacter::PickUpWeapon(AWeaponActor* weaponActor)
 {
 	Weapon = weaponActor;
 	weaponActor->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
-	HeldWeaponChangeNotifier->OnHeldWeaponChanged.Broadcast();
+	weaponActor->GetWeaponController()->Attached(this);
+	HeldWeaponChangeNotifier->CallWeaponChanged();
 }
 
 AWeaponActor* ATestShooterCharacter::GetWeapon() const

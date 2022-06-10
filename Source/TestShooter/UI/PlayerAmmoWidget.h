@@ -7,7 +7,6 @@
 #include "Components/TextBlock.h"
 #include "TestShooter/Weapon/BaseWeaponController.h"
 #include "TestShooter/Weapon/IWeaponHolder.h"
-#include "TestShooter/Weapon/WeaponActor.h"
 #include "PlayerAmmoWidget.generated.h"
 
 UCLASS()
@@ -23,17 +22,23 @@ protected:
 	virtual void NativeConstruct() override;
 
 private:
+	UBaseWeaponController* GetWeaponController() const;
+
+	UFUNCTION()
+	void HeldWeaponChanged();
+	
 	UFUNCTION(BlueprintCallable)
 	void UpdateView();
 
-	UBaseWeaponController* GetWeaponController() const;
-	void HeldWeaponChanged();
+	UFUNCTION(BlueprintCallable)
 	void ClipAmmoChanged(int currentAmmo);
+
+	UFUNCTION(BlueprintCallable)
 	void ContainerAmmoChanged(int currentAmmo);
 	
 private:
-	IWeaponHolder* WeaponHolder;
+	IWeaponHolder* WeaponHolder = nullptr;
 
 	UPROPERTY()
-	UBaseWeaponController* CurrentWeaponController;
+	UBaseWeaponController* CurrentWeaponController = nullptr;
 };

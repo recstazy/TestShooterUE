@@ -3,7 +3,6 @@
 UBaseWeaponController::UBaseWeaponController()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-	Clip = CreateDefaultSubobject<UWeaponClip>("Clip");
 }
 
 UWeaponClip* UBaseWeaponController::GetClip() const
@@ -18,6 +17,10 @@ IAmmoContainerOwner* UBaseWeaponController::GetAmmoOwner() const
 
 void UBaseWeaponController::BeginPlay()
 {
+	Clip = Cast<UWeaponClip>(GetOwner()->GetComponentByClass(UWeaponClip::StaticClass()));
+	if (Clip == nullptr)
+		UE_LOG(LogTemp, Error, TEXT("Clip not found on weapon"));
+	
 	const auto weaponComponents = GetOwner()->GetComponentsByInterface(UWeapon::StaticClass());
 
 	if (weaponComponents.Num() > 0)
@@ -25,7 +28,6 @@ void UBaseWeaponController::BeginPlay()
 	else
 		UE_LOG(LogTemp, Error, TEXT("Weapon component not found in Weapon"));
 	
-	Attached(GetOwner());
 	Super::BeginPlay();
 }
 

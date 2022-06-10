@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "IWeaponController.h"
+#include "WeaponClip.h"
 #include "GameFramework/Actor.h"
 #include "TestShooter/Collectable/ICollectable.h"
 #include "WeaponActor.generated.h"
@@ -27,4 +28,7 @@ protected:
 
 private:
 	IWeaponController* WeaponController;
+
+	UPROPERTY(VisibleAnywhere)
+	UWeaponClip* Clip;
 };

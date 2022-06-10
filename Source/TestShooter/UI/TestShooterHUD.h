@@ -32,6 +32,7 @@ protected:
 	
 private:
 	void DrawCrosshair();
+	void InitializeHUD();
 	
 private:
 	/** Crosshair asset pointer */
