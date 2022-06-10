@@ -5,6 +5,15 @@
 AWeaponActor::AWeaponActor()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>("Mesh");
+	RootComponent = Mesh;
+	Mesh->SetGenerateOverlapEvents(false);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+
+	CollectableTrigger = CreateDefaultSubobject<USphereComponent>("CollectableTrigger");
+	CollectableTrigger->SetCollisionProfileName("Trigger");
+	CollectableTrigger->SetGenerateOverlapEvents(true);
+	
 	Clip = CreateDefaultSubobject<UWeaponClip>("WeaponClip");
 }
 

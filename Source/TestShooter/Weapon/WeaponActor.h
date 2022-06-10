@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "IWeaponController.h"
 #include "WeaponClip.h"
+#include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
 #include "TestShooter/Collectable/ICollectable.h"
 #include "WeaponActor.generated.h"
@@ -33,4 +34,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	UWeaponClip* Clip;
+
+	UPROPERTY(EditAnywhere)
+	USkeletalMeshComponent* Mesh;
+
+	UPROPERTY(EditDefaultsOnly)
+	USphereComponent* CollectableTrigger;
 };
