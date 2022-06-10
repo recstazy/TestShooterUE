@@ -8,6 +8,9 @@ URaycastWeapon::URaycastWeapon()
 	arrow = CreateDefaultSubobject<UArrowComponent>(TEXT("ShootDirection"));
 	arrow->SetupAttachment(this);
 	arrow->ResetRelativeTransform();
+	Damage = 20.0f;
+	MaxDistance = 1000.0f;
+	TraceChannel = ECollisionChannel::ECC_WorldDynamic;
 }
 
 void URaycastWeapon::MakeOneShot()
