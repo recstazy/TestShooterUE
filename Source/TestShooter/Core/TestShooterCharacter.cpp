@@ -87,6 +87,8 @@ void ATestShooterCharacter::PickUpWeapon(AWeaponActor* weaponActor)
 	{
 		if (!bUsingMotionControllers)
 			Weapon->OverrideShootOrigin(nullptr);
+
+		Weapon->DetachFromActor(FDetachmentTransformRules(EDetachmentRule::KeepWorld, false));
 	}
 	
 	Weapon = weaponActor;
