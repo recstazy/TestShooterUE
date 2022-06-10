@@ -20,6 +20,41 @@ void ATestShooterHUD::DrawHUD()
 	DrawCrosshair();
 }
 
+void ATestShooterHUD::BeginPlay()
+{
+	if (AmmoWidgetClass != nullptr)
+	{
+		AmmoWidget = CreateWidget(GetWorld(), AmmoWidgetClass);
+		AmmoWidget->AddToPlayerScreen();
+	}
+
+	if (HealthWidgetClass != nullptr)
+	{
+		HealthWidget = CreateWidget(GetWorld(), HealthWidgetClass);
+		HealthWidget->AddToPlayerScreen();
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Add Health Widget"));
+	}
+	
+	Super::BeginPlay();
+}
+
+void ATestShooterHUD::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	if (HealthWidget != nullptr)
+	{
+		HealthWidget->RemoveFromParent();
+		HealthWidget = nullptr;
+	}
+
+	if (AmmoWidget != nullptr)
+	{
+		AmmoWidget->RemoveFromParent();
+		AmmoWidget = nullptr;
+	}
+	
+	Super::EndPlay(EndPlayReason);
+}
+
 void ATestShooterHUD::DrawCrosshair()
 {
 	// Draw very simple crosshair

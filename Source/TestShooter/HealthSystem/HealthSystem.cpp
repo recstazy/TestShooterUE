@@ -14,11 +14,9 @@ float UHealthSystem::TakeDamage(float damage)
 	const float resultHealth = CurrentHealth - damage;
 	CurrentHealth = FMath::Clamp(resultHealth, 0.0f, MaxHealth);
 	OnDamage.Broadcast();
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("HS Damaged: %f"), damage));
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Current Health %f"), CurrentHealth));
-	
+	OnHealthChanged.Broadcast();
 	const bool isStillAlive = resultHealth > 0.0f;
-	
+
 	if (!isStillAlive)
 		HandleDeath();
 
@@ -28,8 +26,7 @@ float UHealthSystem::TakeDamage(float damage)
 void UHealthSystem::Heal(float amount)
 {
 	CurrentHealth = FMath::Clamp(CurrentHealth + amount, 0.0f, MaxHealth);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("HS Healed"));
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Current Health %f"), CurrentHealth));
+	OnHealthChanged.Broadcast();
 }
 
 bool UHealthSystem::IsAlive() const

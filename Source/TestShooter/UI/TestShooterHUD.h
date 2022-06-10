@@ -26,11 +26,21 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category="Widgets")
 	TSubclassOf<UUserWidget> HealthWidgetClass;
 
+protected:
+	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	
 private:
 	void DrawCrosshair();
 	
 private:
 	/** Crosshair asset pointer */
 	class UTexture2D* CrosshairTex;
+
+	UPROPERTY(VisibleAnywhere)
+	UUserWidget* AmmoWidget;
+
+	UPROPERTY(VisibleAnywhere)
+	UUserWidget* HealthWidget;
 };
 

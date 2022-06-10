@@ -38,6 +38,9 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FVoidSignature OnDeath;
 
+	UPROPERTY(BlueprintAssignable)
+	FVoidSignature OnHealthChanged;
+
 protected:
 	virtual void BeginPlay() override;
 
