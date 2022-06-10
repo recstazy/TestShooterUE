@@ -12,8 +12,9 @@ URaycastWeapon::URaycastWeapon()
 
 void URaycastWeapon::MakeOneShot()
 {
-	const FVector lineStart = GetComponentLocation();
-	const FRotator rotation = GetComponentRotation();
+	const auto shootOrigin = GetShootOrigin();
+	const FVector lineStart = shootOrigin->GetComponentLocation();
+	const FRotator rotation = shootOrigin->GetComponentRotation();
 	const FVector lineEnd = lineStart + rotation.Vector() * MaxDistance;
 
 	TArray<AActor*> parentActors;
@@ -40,14 +41,24 @@ void URaycastWeapon::MakeOneShot()
 		primitive->AddImpulse(direction * 100000.0f);
 }
 
-void URaycastWeapon::GetAllOwnerActors(TArray<AActor*>& actors) const
+void URaycastWeapon::OverrideShootOrigin(USceneComponent* newOriginOverride)
+{
+	ShootOriginOverride = newOriginOverride;
+}
+
+void URaycastWeapon::GetAllOwnerActors(TArray<AActor*>& outActors) const
 {
 	AActor* parent = GetOwner();
 
 	while(parent != nullptr)
 	{
-		actors.Add(parent);
+		outActors.Add(parent);
 		parent = parent->GetAttachParentActor();
 	}
+}
+
+USceneComponent* URaycastWeapon::GetShootOrigin()
+{
+	return ShootOriginOverride != nullptr ? ShootOriginOverride : this;
 }
 

@@ -39,6 +39,11 @@ void UBaseWeaponController::Attached(UObject* toObject)
 		UE_LOG(LogTemp, Error, TEXT("Object which weapon was attached to is not an IAmmoContainerOwner"));
 }
 
+IWeapon* UBaseWeaponController::GetWeapon()
+{
+	return Weapon;
+}
+
 void UBaseWeaponController::Reload()
 {
 	if (AmmoOwner == nullptr)

@@ -17,4 +17,7 @@ class TESTSHOOTER_API IWeapon
 public:
 	UFUNCTION()
 	virtual void MakeOneShot() = 0;
+
+	UFUNCTION()
+	virtual void OverrideShootOrigin(USceneComponent* newOrigin) = 0;
 };

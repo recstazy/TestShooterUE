@@ -13,7 +13,12 @@ class TESTSHOOTER_API URaycastWeapon : public USceneComponent, public IWeapon
 
 public:
 	URaycastWeapon();
+
+	UFUNCTION(BlueprintCallable)
 	virtual void MakeOneShot() override;
+
+	UFUNCTION(BlueprintCallable)
+	virtual void OverrideShootOrigin(USceneComponent* newOriginOverride) override;
 
 private:
 	UPROPERTY(VisibleInstanceOnly)
@@ -28,6 +33,10 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float Damage;
 
+	UPROPERTY(VisibleAnywhere)
+	USceneComponent* ShootOriginOverride;
+
 private:
-	void GetAllOwnerActors(TArray<AActor*>& actors) const;
+	void GetAllOwnerActors(TArray<AActor*>& outActors) const;
+	USceneComponent* GetShootOrigin();
 };

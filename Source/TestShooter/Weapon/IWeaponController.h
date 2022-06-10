@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
+#include "TestShooter/Weapon/IWeapon.h"
 #include "IWeaponController.generated.h"
 
 UINTERFACE()
@@ -15,6 +16,8 @@ class TESTSHOOTER_API IWeaponController
 	GENERATED_BODY()
 	
 public:
+	virtual IWeapon* GetWeapon() = 0;
+	
 	UFUNCTION()
 	virtual void Attached(UObject* toObject) = 0;
 	

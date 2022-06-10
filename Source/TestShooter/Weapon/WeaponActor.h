@@ -14,12 +14,14 @@ class TESTSHOOTER_API AWeaponActor : public AActor, public ICollectable
 
 public:
 	AWeaponActor();
+	IWeaponController* GetWeaponController() const;
+
+	UFUNCTION(BlueprintCallable)
+	void OverrideShootOrigin(USceneComponent* inOrigin);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void OnCollected(UObject* collectedObject) override;
 
-	IWeaponController* GetWeaponController() const;
-	
 	UFUNCTION(BlueprintCallable)
 	void GetWeaponControllerBP(TScriptInterface<IWeaponController>& outController) const;
 

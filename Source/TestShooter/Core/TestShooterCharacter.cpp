@@ -80,9 +80,22 @@ UAmmoContainer* ATestShooterCharacter::GetAmmoContainer()
 
 void ATestShooterCharacter::PickUpWeapon(AWeaponActor* weaponActor)
 {
+	if (Weapon == weaponActor)
+		return;
+	
+	if (Weapon != nullptr)
+	{
+		if (!bUsingMotionControllers)
+			Weapon->OverrideShootOrigin(nullptr);
+	}
+	
 	Weapon = weaponActor;
 	weaponActor->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 	weaponActor->GetWeaponController()->Attached(this);
+
+	if (!bUsingMotionControllers)
+		Weapon->OverrideShootOrigin(FP_MuzzleLocation);
+	
 	HeldWeaponChangeNotifier->CallWeaponChanged();
 }
 

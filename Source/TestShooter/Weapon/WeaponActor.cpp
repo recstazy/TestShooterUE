@@ -22,6 +22,14 @@ IWeaponController* AWeaponActor::GetWeaponController() const
 	return WeaponController;
 }
 
+void AWeaponActor::OverrideShootOrigin(USceneComponent* inOrigin)
+{
+	IWeapon* iWeapon = WeaponController->GetWeapon();
+
+	if (iWeapon != nullptr)
+		iWeapon->OverrideShootOrigin(inOrigin);
+}
+
 void AWeaponActor::GetWeaponControllerBP(TScriptInterface<IWeaponController>& outController) const
 {
 	outController = Cast<UObject>(GetWeaponController());

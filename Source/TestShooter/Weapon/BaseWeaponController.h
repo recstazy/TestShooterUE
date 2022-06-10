@@ -22,9 +22,18 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual IWeapon* GetWeapon() override;
+
+	UFUNCTION()
 	virtual void Attached(UObject* toObject) override;
+
+	UFUNCTION(BlueprintCallable)
 	virtual void Reload() override;
+
+	UFUNCTION(BlueprintCallable)
 	virtual void TriggerDown() override;
+
+	UFUNCTION(BlueprintCallable)
 	virtual void TriggerUp() override;
 
 protected:
