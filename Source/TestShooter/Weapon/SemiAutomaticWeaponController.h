@@ -12,5 +12,4 @@ class TESTSHOOTER_API USemiAutomaticWeaponController : public UBaseWeaponControl
 public:
 	USemiAutomaticWeaponController();
 	virtual void TriggerDown() override;
-	virtual void TriggerUp() override;
 };

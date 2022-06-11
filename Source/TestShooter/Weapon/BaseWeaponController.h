@@ -36,10 +36,19 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	virtual void TriggerUp() override;
 
+	UFUNCTION(BlueprintCallable)
+	void MakeOneShot();
+
 protected:
 	IWeapon* Weapon;
 	IAmmoContainerOwner* AmmoOwner;
 
 	UPROPERTY(VisibleAnywhere)
 	UWeaponClip* Clip;
+
+	UPROPERTY()
+	TArray<UActorComponent*> ActivateOnShot;
+
+	UPROPERTY(EditDefaultsOnly)
+	FName ActivateOnShotComponentTag;
 };
