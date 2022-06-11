@@ -47,6 +47,9 @@ protected:
 private:
 	void HandleDeath();
 
+	UFUNCTION()
+	void OwnerDamaged(AActor* DamagedActor, float DamageAmount, const UDamageType* DamageType, AController* EventInstigator, AActor* DamageCauser);
+
 private:
 	UPROPERTY(EditDefaultsOnly, meta=(AllowPrivateAccess))
 	float MaxHealth;

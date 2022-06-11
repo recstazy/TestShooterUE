@@ -218,13 +218,6 @@ void ATestShooterCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const 
 	TouchItem.bIsPressed = false;
 }
 
-float ATestShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
-	AController* EventInstigator, AActor* DamageCauser)
-{
-	const float damageAmt = HealthSystem->TakeDamage(DamageAmount);
-	return Super::TakeDamage(damageAmt, DamageEvent, EventInstigator, DamageCauser);
-}
-
 void ATestShooterCharacter::MoveForward(float Value)
 {
 	if (Value != 0.0f)

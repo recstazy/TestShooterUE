@@ -46,6 +46,8 @@ float UHealthSystem::GetMaxHealth() const
 
 void UHealthSystem::BeginPlay()
 {
+	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthSystem::OwnerDamaged);
+	
 	CurrentHealth = MaxHealth;
 	bIsAlive = true;
 	Super::BeginPlay();
@@ -55,5 +57,10 @@ void UHealthSystem::HandleDeath()
 {
 	bIsAlive = false;
 	OnDeath.Broadcast();
+}
+
+void UHealthSystem::OwnerDamaged(AActor* DamagedActor, float DamageAmount, const UDamageType* DamageType, AController* EventInstigator, AActor* DamageCauser)
+{
+	TakeDamage(DamageAmount);
 }
 
