@@ -65,7 +65,7 @@ ATestShooterCharacter::ATestShooterCharacter()
 
 	Health = CreateDefaultSubobject<UHealthSystem>(TEXT("HealthSystem"));
 	AmmoContainer = CreateDefaultSubobject<UAmmoContainer>(TEXT("AmmoContainer"));
-	HeldWeaponChangeNotifier = CreateDefaultSubobject<UHeldWeaponChangeNotifier>("WeaponChangeNotifier");
+	// HeldWeaponChangeNotifier = CreateDefaultSubobject<UHeldWeaponChangeNotifier>("WeaponChangeNotifier");
 }
 
 UHealthSystem* ATestShooterCharacter::GetHealthSystem()
@@ -125,6 +125,13 @@ void ATestShooterCharacter::BeginPlay()
 	{
 		Mesh1P->SetHiddenInGame(false, true);
 	}
+}
+
+void ATestShooterCharacter::PreInitializeComponents()
+{
+	Super::PreInitializeComponents();
+	const auto notifier = AddComponentByClass(UHeldWeaponChangeNotifier::StaticClass(), false, FTransform::Identity, false);
+	HeldWeaponChangeNotifier = Cast<UHeldWeaponChangeNotifier>(notifier);
 }
 
 //////////////////////////////////////////////////////////////////////////
