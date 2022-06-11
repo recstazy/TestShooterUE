@@ -39,9 +39,9 @@ void URaycastWeapon::MakeOneShot()
 	damageEvent.ShotDirection = direction;
 	hit.Actor->TakeDamage(Damage, damageEvent, GetOwner()->GetInstigatorController(),GetOwner());
 
-	auto primitive = Cast<UPrimitiveComponent>(hit.Actor->GetComponentByClass(UPrimitiveComponent::StaticClass()));
+	auto primitive = hit.Component;
 
-	if (primitive != nullptr && primitive->IsSimulatingPhysics() && primitive->GetOwner()->IsRootComponentMovable())
+	if (primitive->IsSimulatingPhysics())
 		primitive->AddImpulseAtLocation(direction * DamageImpulse, hit.ImpactPoint);
 }
 
