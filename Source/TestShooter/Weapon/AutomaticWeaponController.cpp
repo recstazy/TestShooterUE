@@ -11,9 +11,11 @@ void UAutomaticWeaponController::TriggerDown()
 	if (Weapon == nullptr)
 		return;
 
+	const float fireDelay = 1.0f/FireRatePerSecond;
+	TimerFireCallback();
 	Timer = FTimerHandle();
 	GetWorld()->GetTimerManager().SetTimer(
-		Timer, this, &UAutomaticWeaponController::TimerFireCallback, 1.0f/FireRatePerSecond, true);
+		Timer, this, &UAutomaticWeaponController::TimerFireCallback, fireDelay, true, fireDelay);
 }
 
 void UAutomaticWeaponController::TriggerUp()
