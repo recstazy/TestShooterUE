@@ -1,30 +1,17 @@
 #include "PlayerAmmoWidget.h"
 
+#include "Kismet/GameplayStatics.h"
+#include "TestShooter/Core/TestShooterGameMode.h"
 #include "TestShooter/Weapon/BaseWeaponController.h"
 
 void UPlayerAmmoWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+
 	const auto playerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-
-	AmmoOwner = Cast<IAmmoContainerOwner>(playerPawn);
-
-	if (AmmoOwner != nullptr)
-		AmmoOwner->GetAmmoContainer()->OnAmmoChanged.AddDynamic(this, &UPlayerAmmoWidget::ContainerAmmoChanged);
-	
-	WeaponHolder = Cast<IWeaponHolder>(playerPawn);
-	if (WeaponHolder == nullptr)
-		return;
-
-	const auto weaponChangeNotifier = WeaponHolder->GetHeldWeaponChangedNotifier();
-	auto message = weaponChangeNotifier == nullptr ? "Notifier is NULL" : "Notifier is NOT null";
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
-
-	if (weaponChangeNotifier == nullptr)
-		return;
-	
-	weaponChangeNotifier->OnHeldWeaponChanged.AddDynamic(this, &UPlayerAmmoWidget::HeldWeaponChanged);
-	HeldWeaponChanged();
+	PlayerSpawned(playerPawn);
+	const auto gameMode = Cast<ATestShooterGameMode>(UGameplayStatics::GetGameMode(this));
+	gameMode->OnPlayerSpawned.AddDynamic(this, &UPlayerAmmoWidget::PlayerSpawned);
 }
 
 void UPlayerAmmoWidget::UpdateView()
@@ -62,7 +49,7 @@ UBaseWeaponController* UPlayerAmmoWidget::GetWeaponController() const
 void UPlayerAmmoWidget::HeldWeaponChanged()
 {
 	if (CurrentWeaponController != nullptr)
-		CurrentWeaponController->GetClip()->OnCurrentAmmoChanged.AddDynamic(this, &UPlayerAmmoWidget::ClipAmmoChanged);
+		CurrentWeaponController->GetClip()->OnCurrentAmmoChanged.RemoveDynamic(this, &UPlayerAmmoWidget::ClipAmmoChanged);
 
 	CurrentWeaponController = GetWeaponController();
 
@@ -80,4 +67,39 @@ void UPlayerAmmoWidget::ClipAmmoChanged(int currentAmmo)
 void UPlayerAmmoWidget::ContainerAmmoChanged(int currentAmmo)
 {
 	UpdateView();
+}
+
+void UPlayerAmmoWidget::PlayerSpawned(AActor* playerActor)
+{
+	// Unsubscribe from old player pawn
+	if (AmmoOwner != nullptr)
+		AmmoOwner->GetAmmoContainer()->OnAmmoChanged.RemoveDynamic(this, &UPlayerAmmoWidget::ContainerAmmoChanged);
+	
+	if (WeaponHolder != nullptr)
+	{
+		const auto notifier = WeaponHolder->GetHeldWeaponChangedNotifier();
+		if (notifier != nullptr)
+			notifier->OnHeldWeaponChanged.RemoveDynamic(this, &UPlayerAmmoWidget::HeldWeaponChanged);
+	}
+	
+	// Subscribe to new player pawn
+	AmmoOwner = Cast<IAmmoContainerOwner>(playerActor);
+
+	if (AmmoOwner != nullptr)
+		AmmoOwner->GetAmmoContainer()->OnAmmoChanged.AddDynamic(this, &UPlayerAmmoWidget::ContainerAmmoChanged);
+	
+	WeaponHolder = Cast<IWeaponHolder>(playerActor);
+	if (WeaponHolder == nullptr)
+		return;
+
+	const auto weaponChangeNotifier = WeaponHolder->GetHeldWeaponChangedNotifier();
+	const auto message = weaponChangeNotifier == nullptr ? "Notifier is NULL" : "Notifier is NOT null";
+	const auto color = weaponChangeNotifier == nullptr ? FColor::Red : FColor::Green;
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, color, message);
+
+	if (weaponChangeNotifier == nullptr)
+		return;
+	
+	weaponChangeNotifier->OnHeldWeaponChanged.AddDynamic(this, &UPlayerAmmoWidget::HeldWeaponChanged);
+	HeldWeaponChanged();
 }

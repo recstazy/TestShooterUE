@@ -33,6 +33,9 @@ private:
 
 	UFUNCTION(BlueprintCallable)
 	void ContainerAmmoChanged(int currentAmmo);
+
+	UFUNCTION()
+	void PlayerSpawned(AActor* playerActor);
 	
 private:
 	IWeaponHolder* WeaponHolder = nullptr;
@@ -40,5 +43,4 @@ private:
 
 	UPROPERTY()
 	UBaseWeaponController* CurrentWeaponController = nullptr;
-
 };

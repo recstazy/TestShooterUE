@@ -24,6 +24,9 @@ private:
 
 	UFUNCTION(BlueprintCallable)
 	void HealthSystemChanged(UHealthSystem* healthSystem);
+
+	UFUNCTION()
+	void PlayerSpawned(AActor* playerActor);
 	
 private:
 	UPROPERTY(VisibleAnywhere)

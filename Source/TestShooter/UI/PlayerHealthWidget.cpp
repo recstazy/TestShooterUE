@@ -1,16 +1,15 @@
 #include "PlayerHealthWidget.h"
+
+#include "Kismet/GameplayStatics.h"
+#include "TestShooter/Core/TestShooterGameMode.h"
 #include "TestShooter/HealthSystem/IHealthOwner.h"
 
 void UPlayerHealthWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	const auto healthOwner = Cast<IHealthOwner>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	if (healthOwner == nullptr)
-		return;
-	
-	HealthSystem = healthOwner->GetHealthSystem();
-	HealthSystem->OnHealthChanged.AddDynamic(this, &UPlayerHealthWidget::HealthSystemChanged);
-	UpdateView();
+	PlayerSpawned(GetWorld()->GetFirstPlayerController()->GetPawn());
+	const auto gameMode = Cast<ATestShooterGameMode>(UGameplayStatics::GetGameMode(this));
+	gameMode->OnPlayerSpawned.AddDynamic(this, &UPlayerHealthWidget::PlayerSpawned);
 }
 
 void UPlayerHealthWidget::UpdateView()
@@ -25,5 +24,21 @@ void UPlayerHealthWidget::UpdateView()
 
 void UPlayerHealthWidget::HealthSystemChanged(UHealthSystem* healthSystem)
 {
+	UpdateView();
+}
+
+void UPlayerHealthWidget::PlayerSpawned(AActor* playerActor)
+{
+	// Unsubscribe from old player pawn
+	if (HealthSystem != nullptr)
+		HealthSystem->OnHealthChanged.RemoveDynamic(this, &UPlayerHealthWidget::HealthSystemChanged);
+
+	// Subscribe to new player pawn
+	const auto healthOwner = Cast<IHealthOwner>(playerActor);
+	if (healthOwner == nullptr)
+		return;
+	
+	HealthSystem = healthOwner->GetHealthSystem();
+	HealthSystem->OnHealthChanged.AddDynamic(this, &UPlayerHealthWidget::HealthSystemChanged);
 	UpdateView();
 }

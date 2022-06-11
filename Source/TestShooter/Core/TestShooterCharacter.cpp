@@ -65,7 +65,7 @@ ATestShooterCharacter::ATestShooterCharacter()
 
 	Health = CreateDefaultSubobject<UHealthSystem>(TEXT("HealthSystem"));
 	AmmoContainer = CreateDefaultSubobject<UAmmoContainer>(TEXT("AmmoContainer"));
-	HeldWeaponChangeNotifier = CreateDefaultSubobject<UHeldWeaponChangeNotifier>("HeldWeaponChangeNotifier");
+	HeldWeaponChangeNotifier = CreateDefaultSubobject<UHeldWeaponChangeNotifier>("WeaponChangeNotifier");
 }
 
 UHealthSystem* ATestShooterCharacter::GetHealthSystem()
