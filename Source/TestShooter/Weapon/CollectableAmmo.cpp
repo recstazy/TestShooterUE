@@ -20,6 +20,5 @@ void ACollectableAmmo::OnCollected(UObject* collectedObject)
 	if (!wasCollected)
 		return;;
 	
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("I'm collected"));
 	Destroy();
 }

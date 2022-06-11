@@ -10,6 +10,7 @@ URaycastWeapon::URaycastWeapon()
 	arrow->ResetRelativeTransform();
 	Damage = 20.0f;
 	MaxDistance = 1000.0f;
+	DamageImpulse = 10000.0f;
 	TraceChannel = ECollisionChannel::ECC_WorldDynamic;
 }
 
@@ -41,7 +42,7 @@ void URaycastWeapon::MakeOneShot()
 	auto primitive = Cast<UPrimitiveComponent>(hit.Actor->GetComponentByClass(UPrimitiveComponent::StaticClass()));
 
 	if (primitive != nullptr && primitive->GetOwner()->IsRootComponentMovable())
-		primitive->AddImpulse(direction * 100000.0f);
+		primitive->AddImpulseAtLocation(direction * DamageImpulse, hit.ImpactPoint);
 }
 
 void URaycastWeapon::OverrideShootOrigin(USceneComponent* newOriginOverride)

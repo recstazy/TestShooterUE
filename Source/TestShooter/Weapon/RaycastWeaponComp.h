@@ -33,6 +33,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float Damage;
 
+	UPROPERTY(EditDefaultsOnly)
+	float DamageImpulse;
+
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* ShootOriginOverride;
 
