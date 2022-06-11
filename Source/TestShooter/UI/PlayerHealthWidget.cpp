@@ -9,7 +9,7 @@ void UPlayerHealthWidget::NativeConstruct()
 		return;
 	
 	HealthSystem = healthOwner->GetHealthSystem();
-	HealthSystem->OnHealthChanged.AddDynamic(this, &UPlayerHealthWidget::UpdateView);
+	HealthSystem->OnHealthChanged.AddDynamic(this, &UPlayerHealthWidget::HealthSystemChanged);
 	UpdateView();
 }
 
@@ -21,4 +21,9 @@ void UPlayerHealthWidget::UpdateView()
 	const float curHealth = HealthSystem->GetCurrentHealth();
 	const float maxHealth = HealthSystem->GetMaxHealth();
 	HealthBar->SetPercent(curHealth / maxHealth);
+}
+
+void UPlayerHealthWidget::HealthSystemChanged(UHealthSystem* healthSystem)
+{
+	UpdateView();
 }

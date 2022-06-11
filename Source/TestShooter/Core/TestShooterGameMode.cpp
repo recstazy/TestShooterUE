@@ -1,17 +1,29 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #include "TestShooterGameMode.h"
-#include "TestShooter/UI/TestShooterHUD.h"
 #include "TestShooterCharacter.h"
-#include "UObject/ConstructorHelpers.h"
+#include "TestShooter/UI/TestShooterHUD.h"
 
 ATestShooterGameMode::ATestShooterGameMode()
 	: Super()
 {
-	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/FirstPersonCPP/Blueprints/FirstPersonCharacter"));
-	DefaultPawnClass = PlayerPawnClassFinder.Class;
-
-	// use our custom HUD class
+	DefaultPawnClass = ATestShooterCharacter::StaticClass();
 	HUDClass = ATestShooterHUD::StaticClass();
+}
+
+void ATestShooterGameMode::RestartPlayer(AController* NewPlayer)
+{
+	Super::RestartPlayer(NewPlayer);
+
+	const auto pawn = NewPlayer->GetPawn();
+	OnPlayerSpawned.Broadcast(pawn);
+	const auto healthOwner = Cast<IHealthOwner>(pawn);
+	const auto health = healthOwner->GetHealthSystem();
+	health->OnDeath.AddDynamic(this, &ATestShooterGameMode::PlayerDead);
+}
+
+void ATestShooterGameMode::PlayerDead(UHealthSystem* health)
+{
+	auto pawn = Cast<APawn>(health->GetOwner());
+	auto controller = pawn->GetController();
+	pawn->Destroy();
+	RestartPlayer(controller);
 }

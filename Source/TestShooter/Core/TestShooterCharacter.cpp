@@ -63,14 +63,14 @@ ATestShooterCharacter::ATestShooterCharacter()
 	ObjectCollectorComp->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	ObjectCollectorComp->InitSphereRadius(100.0f);
 
-	HealthSystem = CreateDefaultSubobject<UHealthSystem>(TEXT("Health"));
+	Health = CreateDefaultSubobject<UHealthSystem>(TEXT("HealthSystem"));
 	AmmoContainer = CreateDefaultSubobject<UAmmoContainer>(TEXT("AmmoContainer"));
 	HeldWeaponChangeNotifier = CreateDefaultSubobject<UHeldWeaponChangeNotifier>("HeldWeaponChangeNotifier");
 }
 
 UHealthSystem* ATestShooterCharacter::GetHealthSystem()
 {
-	return HealthSystem;
+	return Health;
 }
 
 UAmmoContainer* ATestShooterCharacter::GetAmmoContainer()

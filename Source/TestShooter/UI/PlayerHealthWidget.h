@@ -21,6 +21,9 @@ protected:
 private:
 	UFUNCTION(BlueprintCallable)
 	void UpdateView();
+
+	UFUNCTION(BlueprintCallable)
+	void HealthSystemChanged(UHealthSystem* healthSystem);
 	
 private:
 	UPROPERTY(VisibleAnywhere)

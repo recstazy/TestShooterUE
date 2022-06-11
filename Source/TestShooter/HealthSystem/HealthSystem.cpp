@@ -13,8 +13,8 @@ float UHealthSystem::TakeDamage(float damage)
 	const float initialHealth = CurrentHealth;
 	const float resultHealth = CurrentHealth - damage;
 	CurrentHealth = FMath::Clamp(resultHealth, 0.0f, MaxHealth);
-	OnDamage.Broadcast();
-	OnHealthChanged.Broadcast();
+	OnDamage.Broadcast(this);
+	OnHealthChanged.Broadcast(this);
 	const bool isStillAlive = resultHealth > 0.0f;
 
 	if (!isStillAlive)
@@ -26,7 +26,7 @@ float UHealthSystem::TakeDamage(float damage)
 void UHealthSystem::Heal(float amount)
 {
 	CurrentHealth = FMath::Clamp(CurrentHealth + amount, 0.0f, MaxHealth);
-	OnHealthChanged.Broadcast();
+	OnHealthChanged.Broadcast(this);
 }
 
 bool UHealthSystem::IsAlive() const
@@ -50,13 +50,14 @@ void UHealthSystem::BeginPlay()
 	
 	CurrentHealth = MaxHealth;
 	bIsAlive = true;
+	OnHealthChanged.Broadcast(this);
 	Super::BeginPlay();
 }
 
 void UHealthSystem::HandleDeath()
 {
 	bIsAlive = false;
-	OnDeath.Broadcast();
+	OnDeath.Broadcast(this);
 }
 
 void UHealthSystem::OwnerDamaged(AActor* DamagedActor, float DamageAmount, const UDamageType* DamageType, AController* EventInstigator, AActor* DamageCauser)

@@ -49,7 +49,7 @@ class ATestShooterCharacter : public ACharacter, public IHealthOwner, public IAm
 	UObjectCollector* ObjectCollectorComp;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	UHealthSystem* HealthSystem;
+	UHealthSystem* Health;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UAmmoContainer* AmmoContainer;
@@ -99,7 +99,6 @@ public:
 	bool bUsingMotionControllers = false;
 
 protected:
-	
 	void OnTriggerDown();
 	void OnTriggerUp();
 	void OnReload();
